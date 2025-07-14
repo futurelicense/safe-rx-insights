@@ -122,12 +122,62 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <div className="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-            <h3 className="font-semibold text-yellow-800 mb-2">Required CSV Format:</h3>
-            <p className="text-sm text-yellow-700">
-              Your CSV must include: Patient_ID, Full_Name, DOB, Gender, Drug_Name, 
-              Prescription_Date, Days_Supplied, Dosage_mg, Quantity, and other standard fields.
-            </p>
+          <div className="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200">
+            <h3 className="font-semibold text-yellow-800 mb-4">Required CSV Format (opioid_rx_records.csv):</h3>
+            <div className="grid md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <h4 className="font-medium text-yellow-700 mb-2">Patient Information:</h4>
+                <ul className="text-yellow-600 space-y-1">
+                  <li>• Patient_ID - Unique identifier</li>
+                  <li>• Full_Name - Patient name</li>
+                  <li>• DOB - Date of birth (YYYY-MM-DD)</li>
+                  <li>• Gender - M/F/Other</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-yellow-700 mb-2">Prescriber Information:</h4>
+                <ul className="text-yellow-600 space-y-1">
+                  <li>• Prescriber_NPI - National Provider ID</li>
+                  <li>• Prescriber_Name - Provider name</li>
+                  <li>• Pharmacy_Name - Dispensing pharmacy</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-yellow-700 mb-2">Medication Details:</h4>
+                <ul className="text-yellow-600 space-y-1">
+                  <li>• Drug_Name - Opioid name (e.g., Oxycodone)</li>
+                  <li>• Drug_Code - National Drug Code (NDC)</li>
+                  <li>• Dosage_mg - Milligram dosage per pill</li>
+                  <li>• Quantity - Total pills dispensed</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-yellow-700 mb-2">Prescription Timeline:</h4>
+                <ul className="text-yellow-600 space-y-1">
+                  <li>• Prescription_Date - Date written</li>
+                  <li>• Dispense_Date - Date dispensed</li>
+                  <li>• Refill_Date - Date of refill (optional)</li>
+                  <li>• Days_Supplied - Duration medication should last</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-yellow-700 mb-2">Additional Fields:</h4>
+                <ul className="text-yellow-600 space-y-1">
+                  <li>• Refill_Number - Refill count</li>
+                  <li>• Payment_Type - Cash/Insurance/Medicaid/Medicare</li>
+                  <li>• Pickup_Method - In-person/Delivery/Third-party</li>
+                  <li>• State_PDMP_Status - Matched/Unmatched/Not Available</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-yellow-700 mb-2">Risk Indicators:</h4>
+                <ul className="text-yellow-600 space-y-1">
+                  <li>• Overlapping_Prescriptions - TRUE/FALSE</li>
+                  <li>• Adherence_Score - % adherence if tracked</li>
+                  <li>• Notes - Optional clinical notes</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

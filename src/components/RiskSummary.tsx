@@ -1,6 +1,5 @@
-
 import { useMemo } from 'react';
-import { AlertTriangle, TrendingUp, Users, Flag } from 'lucide-react';
+import { AlertTriangle, TrendingUp, Users, Flag, Activity } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PatientRecord, RiskSummaryData } from '@/types/patient';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
@@ -71,79 +70,90 @@ export const RiskSummary = ({ patients }: RiskSummaryProps) => {
     .slice(0, 6);
 
   return (
-    <div className="space-y-6 mb-8">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+    <div className="space-y-8 mb-12">
+      {/* Enhanced Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <Card className="group hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 border-0">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-blue-700">Total Patients</CardTitle>
+            <div className="p-2 bg-blue-500 rounded-lg">
+              <Users className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{summaryData.totalPatients}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-3xl font-bold text-blue-900">{summaryData.totalPatients}</div>
+            <p className="text-xs text-blue-600 mt-1 font-medium">
               Analyzed records
             </p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">High Risk</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-red-500" />
+        <Card className="group hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-red-50 to-pink-50 border-0">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-red-700">High Risk</CardTitle>
+            <div className="p-2 bg-red-500 rounded-lg">
+              <AlertTriangle className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{summaryData.highRisk}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-3xl font-bold text-red-900">{summaryData.highRisk}</div>
+            <p className="text-xs text-red-600 mt-1 font-medium">
               {((summaryData.highRisk / summaryData.totalPatients) * 100).toFixed(1)}% of total
             </p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Medium Risk</CardTitle>
-            <TrendingUp className="h-4 w-4 text-yellow-500" />
+        <Card className="group hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-amber-50 to-orange-50 border-0">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-amber-700">Medium Risk</CardTitle>
+            <div className="p-2 bg-amber-500 rounded-lg">
+              <TrendingUp className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">{summaryData.mediumRisk}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-3xl font-bold text-amber-900">{summaryData.mediumRisk}</div>
+            <p className="text-xs text-amber-600 mt-1 font-medium">
               {((summaryData.mediumRisk / summaryData.totalPatients) * 100).toFixed(1)}% of total
             </p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Flagged Cases</CardTitle>
-            <Flag className="h-4 w-4 text-orange-500" />
+        <Card className="group hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-purple-50 to-indigo-50 border-0">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-purple-700">Flagged Cases</CardTitle>
+            <div className="p-2 bg-purple-500 rounded-lg">
+              <Flag className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-3xl font-bold text-purple-900">
               {patients.filter(p => p.Flagged_Warnings.length > 0).length}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-purple-600 mt-1 font-medium">
               Require attention
             </p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Risk Distribution</CardTitle>
+      {/* Enhanced Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-xl font-bold text-slate-800 flex items-center">
+              <Activity className="h-5 w-5 mr-2 text-blue-600" />
+              Risk Distribution
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={320}>
               <PieChart>
                 <Pie
                   data={riskDistributionData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
+                  innerRadius={70}
+                  outerRadius={120}
                   paddingAngle={5}
                   dataKey="value"
                 >
@@ -157,24 +167,41 @@ export const RiskSummary = ({ patients }: RiskSummaryProps) => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Top Warning Flags</CardTitle>
+        <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-xl font-bold text-slate-800 flex items-center">
+              <Flag className="h-5 w-5 mr-2 text-orange-600" />
+              Top Warning Flags
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={320}>
               <BarChart data={warningData}>
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis 
                   dataKey="warning" 
                   angle={-45}
                   textAnchor="end"
-                  height={80}
+                  height={100}
                   fontSize={12}
+                  stroke="#64748b"
                 />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="count" fill="#3B82F6" />
+                <YAxis stroke="#64748b" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    border: 'none',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+                <Bar dataKey="count" fill="url(#colorGradient)" radius={[4, 4, 0, 0]} />
+                <defs>
+                  <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#3B82F6" />
+                    <stop offset="100%" stopColor="#1E40AF" />
+                  </linearGradient>
+                </defs>
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

@@ -1,6 +1,5 @@
-
 import { useState, useCallback } from 'react';
-import { Upload, FileText, AlertCircle, CheckCircle, Download } from 'lucide-react';
+import { Upload, FileText, AlertCircle, CheckCircle, Download, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -141,39 +140,51 @@ export const CSVUploader = ({ onUpload, isProcessing }: CSVUploaderProps) => {
 
   if (isProcessing) {
     return (
-      <Card className="border-2 border-blue-200 bg-blue-50">
-        <CardContent className="p-8 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Processing Patient Data</h3>
-          <p className="text-blue-600 mb-4">Applying AI risk scoring and analysis...</p>
-          <Progress value={progress} className="w-full max-w-md mx-auto" />
-          <p className="text-sm text-blue-600 mt-2">{progress}% complete</p>
+      <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-xl">
+        <CardContent className="p-10 text-center">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-20 animate-pulse"></div>
+            <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 p-4 rounded-full mx-auto w-20 h-20 flex items-center justify-center">
+              <Sparkles className="h-8 w-8 text-white animate-spin" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-blue-800 mb-3">Processing Patient Data</h3>
+          <p className="text-blue-700 mb-6 text-lg">Applying AI risk scoring and clinical analysis...</p>
+          <div className="max-w-md mx-auto mb-4">
+            <Progress value={progress} className="h-3 bg-blue-200" />
+          </div>
+          <p className="text-blue-600 font-medium">{progress}% complete</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <Card 
-        className={`border-2 border-dashed transition-all duration-200 ${
+        className={`border-2 border-dashed transition-all duration-300 ${
           dragActive 
-            ? 'border-blue-500 bg-blue-50' 
-            : 'border-gray-300 hover:border-gray-400'
+            ? 'border-blue-500 bg-blue-50 shadow-lg scale-105' 
+            : 'border-slate-300 hover:border-slate-400 hover:shadow-md'
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
         onDrop={handleDrop}
       >
-        <CardContent className="p-8 text-center">
-          <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">
+        <CardContent className="p-12 text-center">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 bg-slate-400 rounded-full blur-lg opacity-20"></div>
+            <div className="relative bg-gradient-to-r from-slate-600 to-slate-700 p-4 rounded-full mx-auto w-20 h-20 flex items-center justify-center">
+              <Upload className="h-8 w-8 text-white" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-slate-800 mb-3">
             Drag and drop your CSV file here
           </h3>
-          <p className="text-gray-500 mb-4">or click to select a file</p>
+          <p className="text-slate-600 mb-8 text-lg">or click to select a file</p>
           
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-6">
             <input
               type="file"
               accept=".csv"
@@ -184,8 +195,12 @@ export const CSVUploader = ({ onUpload, isProcessing }: CSVUploaderProps) => {
             />
             
             <label htmlFor="csv-upload">
-              <Button variant="outline" className="cursor-pointer" disabled={isProcessing}>
-                <FileText className="h-4 w-4 mr-2" />
+              <Button 
+                variant="outline" 
+                className="cursor-pointer bg-white hover:bg-slate-50 border-slate-300 hover:border-slate-400 shadow-sm text-lg px-8 py-6" 
+                disabled={isProcessing}
+              >
+                <FileText className="h-5 w-5 mr-3" />
                 Select CSV File
               </Button>
             </label>
@@ -193,9 +208,9 @@ export const CSVUploader = ({ onUpload, isProcessing }: CSVUploaderProps) => {
             <Button 
               variant="secondary" 
               onClick={downloadSampleCSV}
-              className="cursor-pointer"
+              className="cursor-pointer bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 shadow-lg hover:shadow-xl transition-all text-lg px-8 py-6"
             >
-              <Download className="h-4 w-4 mr-2" />
+              <Download className="h-5 w-5 mr-3" />
               Download Sample CSV
             </Button>
           </div>
@@ -203,16 +218,16 @@ export const CSVUploader = ({ onUpload, isProcessing }: CSVUploaderProps) => {
       </Card>
 
       {validationError && (
-        <Alert variant="destructive">
+        <Alert variant="destructive" className="border-red-200 bg-red-50">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{validationError}</AlertDescription>
+          <AlertDescription className="text-red-800 font-medium">{validationError}</AlertDescription>
         </Alert>
       )}
 
       {file && !validationError && (
-        <Alert>
-          <CheckCircle className="h-4 w-4" />
-          <AlertDescription>
+        <Alert className="border-green-200 bg-green-50">
+          <CheckCircle className="h-4 w-4 text-green-600" />
+          <AlertDescription className="text-green-800 font-medium">
             File "{file.name}" is valid and ready for processing
           </AlertDescription>
         </Alert>

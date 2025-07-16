@@ -1,5 +1,6 @@
+
 import { useState } from 'react';
-import { Upload, AlertTriangle, Users, FileText, TrendingUp, Shield, Zap, Clock } from 'lucide-react';
+import { Upload, AlertTriangle, Users, FileText, TrendingUp, Shield, Zap, Clock, Pill } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CSVUploader } from '@/components/CSVUploader';
 import { PatientDashboard } from '@/components/PatientDashboard';

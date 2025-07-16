@@ -5,7 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { CSVUploader } from '@/components/CSVUploader';
 import { PatientDashboard } from '@/components/PatientDashboard';
 import { RiskSummary } from '@/components/RiskSummary';
+import { AIInsightsPanel } from '@/components/AIInsightsPanel';
+import { AdvancedAnalytics } from '@/components/AdvancedAnalytics';
+import { HuggingFaceAnalyzer } from '@/components/HuggingFaceAnalyzer';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PatientRecord } from '@/types/patient';
 import { processCSVData } from '@/utils/csvProcessor';
 import { applyRiskScoring } from '@/utils/riskEngine';
@@ -30,7 +34,7 @@ const Index = () => {
       
       toast({
         title: "Data processed successfully",
-        description: `${scoredData.length} patient records analyzed with AI risk scoring`,
+        description: `${scoredData.length} patient records analyzed with enhanced AI risk scoring`,
       });
     } catch (error) {
       console.error('Error processing CSV:', error);
@@ -74,7 +78,7 @@ const Index = () => {
               Opioid Risk Monitoring & Patient Adherence Dashboard
             </p>
             <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-              AI-powered client-side analytics for healthcare compliance with enterprise-grade security
+              AI-powered client-side analytics with Hugging Face transformers for advanced healthcare compliance
             </p>
           </header>
 
@@ -262,7 +266,7 @@ const Index = () => {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-blue-900 bg-clip-text text-transparent">
                   ORM-PAD
                 </h1>
-                <p className="text-sm text-slate-600 font-medium">Risk Analysis Dashboard</p>
+                <p className="text-sm text-slate-600 font-medium">Advanced AI Analytics Dashboard</p>
               </div>
             </div>
             <div className="flex items-center space-x-6">
@@ -283,8 +287,36 @@ const Index = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <RiskSummary patients={patients} />
-        <PatientDashboard patients={patients} />
+        <Tabs defaultValue="overview" className="space-y-8">
+          <TabsList className="grid w-full grid-cols-5 bg-white/60 backdrop-blur-sm border border-slate-200/50 shadow-lg">
+            <TabsTrigger value="overview" className="font-medium">Overview</TabsTrigger>
+            <TabsTrigger value="analytics" className="font-medium">Advanced Analytics</TabsTrigger>
+            <TabsTrigger value="ai-insights" className="font-medium">AI Insights</TabsTrigger>
+            <TabsTrigger value="ml-analysis" className="font-medium">ML Analysis</TabsTrigger>
+            <TabsTrigger value="patients" className="font-medium">Patient Data</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-8">
+            <RiskSummary patients={patients} />
+            <AIInsightsPanel patients={patients} />
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-8">
+            <AdvancedAnalytics patients={patients} />
+          </TabsContent>
+
+          <TabsContent value="ai-insights" className="space-y-8">
+            <AIInsightsPanel patients={patients} />
+          </TabsContent>
+
+          <TabsContent value="ml-analysis" className="space-y-8">
+            <HuggingFaceAnalyzer patients={patients} />
+          </TabsContent>
+
+          <TabsContent value="patients" className="space-y-8">
+            <PatientDashboard patients={patients} />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );

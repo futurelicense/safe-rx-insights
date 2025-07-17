@@ -170,7 +170,7 @@ export const AdvancedAnalytics = ({ patients }: AdvancedAnalyticsProps) => {
                 <YAxis dataKey="riskScore" name="Risk Score %" stroke="#64748b" />
                 <Tooltip 
                   formatter={(value, name) => [
-                    name === 'riskScore' ? `${value}%` : value,
+                    name === 'riskScore' ? `${typeof value === 'number' ? value.toFixed(1) : value}%` : value,
                     name === 'riskScore' ? 'Risk Score' : 'Dosage'
                   ]}
                   contentStyle={{ 
@@ -235,7 +235,7 @@ export const AdvancedAnalytics = ({ patients }: AdvancedAnalyticsProps) => {
               <RadialBarChart data={analyticsData.paymentData} innerRadius="30%" outerRadius="90%">
                 <RadialBar dataKey="percentage" cornerRadius={10} fill="#8884d8" />
                 <Legend />
-                <Tooltip formatter={(value) => [`${value.toFixed(1)}%`, 'Percentage']} />
+                <Tooltip formatter={(value) => [`${typeof value === 'number' ? value.toFixed(1) : value}%`, 'Percentage']} />
               </RadialBarChart>
             </ResponsiveContainer>
           </CardContent>

@@ -44,6 +44,9 @@ export const processCSVData = async (file: File): Promise<PatientRecord[]> => {
               case 'Prescriber_NPI':
                 patient.Prescriber_NPI = value;
                 break;
+              case 'Prescriber_DEA':
+                patient.Prescriber_DEA = value;
+                break;
               case 'Prescriber_Name':
                 patient.Prescriber_Name = value;
                 break;

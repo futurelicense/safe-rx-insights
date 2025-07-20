@@ -5,6 +5,7 @@ export interface PatientRecord {
   DOB: string;
   Gender: string;
   Prescriber_NPI: string;
+  Prescriber_DEA: string;
   Prescriber_Name: string;
   Pharmacy_Name: string;
   Drug_Name: string;

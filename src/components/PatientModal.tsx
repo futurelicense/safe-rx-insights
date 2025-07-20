@@ -178,7 +178,10 @@ export const PatientModal = ({ patient, onClose }: PatientModalProps) => {
               <div>
                 <label className="text-sm font-medium text-gray-500">Prescriber</label>
                 <p className="text-sm">{patient.Prescriber_Name}</p>
-                <p className="text-xs text-gray-500">NPI: {patient.Prescriber_NPI}</p>
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-500">DEA: {patient.Prescriber_DEA}</p>
+                  <p className="text-xs text-gray-500">NPI: {patient.Prescriber_NPI}</p>
+                </div>
               </div>
 
               <div>

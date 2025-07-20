@@ -37,21 +37,23 @@ export const AdvancedAnalytics = ({ patients }: AdvancedAnalyticsProps) => {
       quantity: p.Quantity
     }));
 
-    // Prescriber Performance Analysis
-    const prescriberStats: { [key: string]: { count: number; avgRisk: number; highRisk: number } } = {};
+    // Prescriber Performance Analysis (keyed by DEA number for accuracy)
+    const prescriberStats: { [key: string]: { count: number; avgRisk: number; highRisk: number; name: string; dea: string } } = {};
     patients.forEach(p => {
-      if (!prescriberStats[p.Prescriber_Name]) {
-        prescriberStats[p.Prescriber_Name] = { count: 0, avgRisk: 0, highRisk: 0 };
+      const key = p.Prescriber_DEA || p.Prescriber_NPI; // Fallback to NPI if DEA not available
+      if (!prescriberStats[key]) {
+        prescriberStats[key] = { count: 0, avgRisk: 0, highRisk: 0, name: p.Prescriber_Name, dea: p.Prescriber_DEA };
       }
-      prescriberStats[p.Prescriber_Name].count++;
-      prescriberStats[p.Prescriber_Name].avgRisk += p.Risk_Score;
-      if (p.Risk_Level === 'High') prescriberStats[p.Prescriber_Name].highRisk++;
+      prescriberStats[key].count++;
+      prescriberStats[key].avgRisk += p.Risk_Score;
+      if (p.Risk_Level === 'High') prescriberStats[key].highRisk++;
     });
 
     const prescriberData = Object.entries(prescriberStats)
-      .map(([name, stats]) => ({
-        name: name.length > 15 ? name.substring(0, 15) + '...' : name,
-        fullName: name,
+      .map(([key, stats]) => ({
+        name: stats.name.length > 15 ? stats.name.substring(0, 15) + '...' : stats.name,
+        fullName: stats.name,
+        dea: stats.dea,
         prescriptions: stats.count,
         avgRisk: (stats.avgRisk / stats.count) * 100,
         highRiskRate: (stats.highRisk / stats.count) * 100
@@ -129,7 +131,7 @@ export const AdvancedAnalytics = ({ patients }: AdvancedAnalyticsProps) => {
               <div>
                 <p className="text-sm font-medium text-purple-700">Unique Prescribers</p>
                 <p className="text-2xl font-bold text-purple-900">
-                  {new Set(patients.map(p => p.Prescriber_NPI)).size}
+                  {new Set(patients.map(p => p.Prescriber_DEA || p.Prescriber_NPI)).size}
                 </p>
               </div>
               <Users className="h-8 w-8 text-purple-600" />
@@ -213,6 +215,10 @@ export const AdvancedAnalytics = ({ patients }: AdvancedAnalyticsProps) => {
                     border: 'none',
                     borderRadius: '8px',
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  }}
+                  labelFormatter={(label) => {
+                    const prescriber = analyticsData.prescriberData.find(p => p.name === label);
+                    return prescriber ? `${prescriber.fullName} (DEA: ${prescriber.dea})` : label;
                   }}
                 />
                 <Bar dataKey="avgRisk" fill="#10B981" name="Avg Risk %" radius={[2, 2, 0, 0]} />

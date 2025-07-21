@@ -11,19 +11,19 @@ interface CSVUploaderProps {
 }
 
 const REQUIRED_COLUMNS = [
-  'Patient_ID', 'Full_Name', 'DOB', 'Gender', 'Prescriber_NPI', 'Prescriber_Name',
+  'Patient_ID', 'Full_Name', 'DOB', 'Gender', 'Prescriber_NPI', 'Prescriber_DEA', 'Prescriber_Name',
   'Pharmacy_Name', 'Drug_Name', 'Drug_Code', 'Prescription_Date', 'Dispense_Date',
   'Refill_Date', 'Days_Supplied', 'Dosage_mg', 'Quantity', 'Refill_Number',
   'Payment_Type', 'Pickup_Method', 'State_PDMP_Status', 'Overlapping_Prescriptions',
   'Adherence_Score', 'Notes'
 ];
 
-const SAMPLE_CSV_DATA = `Patient_ID,Full_Name,DOB,Gender,Prescriber_NPI,Prescriber_Name,Pharmacy_Name,Drug_Name,Drug_Code,Prescription_Date,Dispense_Date,Refill_Date,Days_Supplied,Dosage_mg,Quantity,Refill_Number,Payment_Type,Pickup_Method,State_PDMP_Status,Overlapping_Prescriptions,Adherence_Score,Notes
-P001,John Smith,1985-03-15,M,1234567890,Dr. Sarah Johnson,Central Pharmacy,Oxycodone,12345-678-90,2024-01-15,2024-01-16,,30,10,90,0,Insurance,In-person,Matched,FALSE,85.5,Initial prescription
-P002,Mary Johnson,1978-11-22,F,0987654321,Dr. Michael Brown,Westside Pharmacy,Morphine,98765-432-10,2024-01-18,2024-01-19,,15,30,45,0,Medicare,Delivery,Matched,FALSE,92.0,Chronic pain management
-P003,Robert Davis,1990-07-08,M,1122334455,Dr. Emily Wilson,Downtown Pharmacy,Fentanyl,11223-344-55,2024-01-20,2024-01-20,2024-01-25,7,25,14,1,Cash,In-person,Unmatched,TRUE,45.2,Early refill request
-P004,Lisa Anderson,1982-12-03,F,5566778899,Dr. James Miller,North Pharmacy,Tramadol,55667-788-99,2024-01-22,2024-01-23,,30,50,60,0,Medicaid,Third-party,Matched,FALSE,78.9,Standard refill
-P005,David Wilson,1975-09-14,M,9988776655,Dr. Sarah Johnson,Central Pharmacy,Oxycodone,12345-678-90,2024-01-25,2024-01-26,,30,15,120,0,Insurance,In-person,Matched,TRUE,65.3,High quantity prescription`;
+const SAMPLE_CSV_DATA = `Patient_ID,Full_Name,DOB,Gender,Prescriber_NPI,Prescriber_DEA,Prescriber_Name,Pharmacy_Name,Drug_Name,Drug_Code,Prescription_Date,Dispense_Date,Refill_Date,Days_Supplied,Dosage_mg,Quantity,Refill_Number,Payment_Type,Pickup_Method,State_PDMP_Status,Overlapping_Prescriptions,Adherence_Score,Notes
+P001,John Smith,1985-03-15,M,1234567890,AS1234567,Dr. Sarah Johnson,Central Pharmacy,Oxycodone,12345-678-90,2024-01-15,2024-01-16,,30,10,90,0,Insurance,In-person,Matched,FALSE,85.5,Initial prescription
+P002,Mary Johnson,1978-11-22,F,0987654321,BT9876543,Dr. Michael Brown,Westside Pharmacy,Morphine,98765-432-10,2024-01-18,2024-01-19,,15,30,45,0,Medicare,Delivery,Matched,FALSE,92.0,Chronic pain management
+P003,Robert Davis,1990-07-08,M,1122334455,CW1122334,Dr. Emily Wilson,Downtown Pharmacy,Fentanyl,11223-344-55,2024-01-20,2024-01-20,2024-01-25,7,25,14,1,Cash,In-person,Unmatched,TRUE,45.2,Early refill request
+P004,Lisa Anderson,1982-12-03,F,5566778899,DM5566778,Dr. James Miller,North Pharmacy,Tramadol,55667-788-99,2024-01-22,2024-01-23,,30,50,60,0,Medicaid,Third-party,Matched,FALSE,78.9,Standard refill
+P005,David Wilson,1975-09-14,M,9988776655,AS1234567,Dr. Sarah Johnson,Central Pharmacy,Oxycodone,12345-678-90,2024-01-25,2024-01-26,,30,15,120,0,Insurance,In-person,Matched,TRUE,65.3,High quantity prescription`;
 
 export const CSVUploader = ({ onUpload, isProcessing }: CSVUploaderProps) => {
   const [dragActive, setDragActive] = useState(false);
